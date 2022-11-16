@@ -1,5 +1,4 @@
-import { Vehicle } from "./vehicle"
-import { FAKE_VEHICLES_DATABASE } from "./vehicles-database"
+import { VehicleRepository } from "./vehicle-repository"
 
 const RENTS = [
   { id: 0, total: 100 }
@@ -7,9 +6,8 @@ const RENTS = [
 
 export class ExecuteRent {
   execute ({ days, licensePlate, personAge }: Input): Output {
-    const vehicleData = FAKE_VEHICLES_DATABASE.find(vehicle => vehicle.licensePlate === licensePlate)
-    if (!vehicleData) throw new Error('vehicle not found')
-    const vehicle = new Vehicle(vehicleData.licensePlate, vehicleData.dailyRate, vehicleData.type)
+    const vehicleRepository = new VehicleRepository()
+    const vehicle = vehicleRepository.loadByLicensePlate(licensePlate)
     const totalRent = vehicle.calculateRent(days, personAge)
 
     const lastRentId = RENTS[RENTS.length - 1].id
