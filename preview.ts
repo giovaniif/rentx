@@ -1,17 +1,17 @@
 import { Vehicle } from "./vehicle"
-import { FAKE_VEHICLE_DATABASE } from "./vehicle-database"
+import { FAKE_VEHICLES_DATABASE } from "./vehicles-database"
 
 export class Preview {
-  execute ({ days, idVehicle, personAge }: Input): number {
-    const vehicleData = FAKE_VEHICLE_DATABASE.find(vehicle => vehicle.id === idVehicle)
+  execute ({ days, licensePlate, personAge }: Input): number {
+    const vehicleData = FAKE_VEHICLES_DATABASE.find(vehicle => vehicle.licensePlate === licensePlate)
     if (!vehicleData) throw new Error('vehicle not found')
-    const vehicle = new Vehicle(vehicleData.id, vehicleData.dailyRate, vehicleData.type) 
+    const vehicle = new Vehicle(vehicleData.licensePlate, vehicleData.dailyRate, vehicleData.type) 
     return vehicle.calculateRent(days, personAge)
   }
 }
 
 type Input = {
-  idVehicle: number,
-  days: number,
   personAge: number
+  licensePlate: string
+  days: number
 }

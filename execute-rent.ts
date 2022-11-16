@@ -1,36 +1,38 @@
 import { Vehicle } from "./vehicle"
-import { FAKE_VEHICLE_DATABASE } from "./vehicle-database"
+import { FAKE_VEHICLES_DATABASE } from "./vehicles-database"
 
-const RENTS_DATABASE = [
+const RENTS = [
   { id: 0, total: 100 }
 ]
 
 export class ExecuteRent {
-  execute ({ days, idVehicle, personAge }: Input): Output {
-    const vehicleData = FAKE_VEHICLE_DATABASE.find(vehicle => vehicle.id === idVehicle)
+  execute ({ days, licensePlate, personAge }: Input): Output {
+    const vehicleData = FAKE_VEHICLES_DATABASE.find(vehicle => vehicle.licensePlate === licensePlate)
     if (!vehicleData) throw new Error('vehicle not found')
-    const vehicle = new Vehicle(vehicleData.id, vehicleData.dailyRate, vehicleData.type)
-    const finalRent = vehicle.calculateRent(days, personAge)
+    const vehicle = new Vehicle(vehicleData.licensePlate, vehicleData.dailyRate, vehicleData.type)
+    const totalRent = vehicle.calculateRent(days, personAge)
 
-    // persistir o dado
-    const lastRentId = RENTS_DATABASE[RENTS_DATABASE.length - 1].id
+    const lastRentId = RENTS[RENTS.length - 1].id
     const rentId = lastRentId + 1
-    RENTS_DATABASE.push({ id: rentId, total: finalRent })
+    RENTS.push({
+      id: rentId,
+      total: totalRent
+    })
 
     return {
       id: rentId,
-      total: finalRent
+      total: totalRent
     }
   }
 }
 
-type Input = {
-  idVehicle: number,
-  days: number,
-  personAge: number
+type Output = {
+  total: number
+  id: number
 }
 
-type Output = {
-  total: number,
-  id: number
+type Input = {
+  personAge: number
+  licensePlate: string
+  days: number
 }
