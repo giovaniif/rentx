@@ -5,9 +5,10 @@ const RENTS = [
 ]
 
 export class ExecuteRent {
+  constructor (private readonly vehicleRepository: VehicleRepository) {}
+
   execute ({ days, licensePlate, personAge }: Input): Output {
-    const vehicleRepository = new VehicleRepository()
-    const vehicle = vehicleRepository.loadByLicensePlate(licensePlate)
+    const vehicle = this.vehicleRepository.loadByLicensePlate(licensePlate)
     const totalRent = vehicle.calculateRent(days, personAge)
 
     const lastRentId = RENTS[RENTS.length - 1].id

@@ -1,8 +1,9 @@
 import { ExecuteRent } from "./execute-rent"
+import { VehicleRepositoryMemory } from "./vehicle-repository-memory"
 
 describe('ExecuteRent', () => {
   it('should execute the rent for a car', () => {
-    const executeRent = new ExecuteRent()
+    const executeRent = new ExecuteRent(new VehicleRepositoryMemory())
 
     const rent = executeRent.execute({
       licensePlate: 'AAA-1111',
@@ -15,7 +16,7 @@ describe('ExecuteRent', () => {
   })
 
   it('should execute the rent for a motorcycle', () => {
-    const executeRent = new ExecuteRent()
+    const executeRent = new ExecuteRent(new VehicleRepositoryMemory())
 
     const rent = executeRent.execute({
       licensePlate: 'AAA-2222',
