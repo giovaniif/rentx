@@ -1,11 +1,10 @@
-import { Vehicle } from "./vehicle"
-import { FAKE_VEHICLES_DATABASE } from "./vehicles-database"
+import { VehicleRepository } from "./vehicle-repository"
 
 export class Preview {
+  constructor (private readonly vehicleRepository: VehicleRepository) {}
+
   execute ({ days, licensePlate, personAge }: Input): number {
-    const vehicleData = FAKE_VEHICLES_DATABASE.find(vehicle => vehicle.licensePlate === licensePlate)
-    if (!vehicleData) throw new Error('vehicle not found')
-    const vehicle = new Vehicle(vehicleData.licensePlate, vehicleData.dailyRate, vehicleData.type) 
+    const vehicle = this.vehicleRepository.loadByLicensePlate(licensePlate)
     return vehicle.calculateRent(days, personAge)
   }
 }
