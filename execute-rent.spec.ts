@@ -1,9 +1,10 @@
 import { ExecuteRent } from "./execute-rent"
+import { RentRepositoryMemory } from "./rent-repository-memory"
 import { VehicleRepositoryMemory } from "./vehicle-repository-memory"
 
 describe('ExecuteRent', () => {
   it('should execute the rent for a car', () => {
-    const executeRent = new ExecuteRent(new VehicleRepositoryMemory())
+    const executeRent = new ExecuteRent(new VehicleRepositoryMemory(), new RentRepositoryMemory())
 
     const rent = executeRent.execute({
       licensePlate: 'AAA-1111',
@@ -12,11 +13,11 @@ describe('ExecuteRent', () => {
     })
 
     expect(rent.total).toBe(247.5)
-    expect(rent.id).toBe(1)
+    expect(rent.id).toBe(2)
   })
 
   it('should execute the rent for a motorcycle', () => {
-    const executeRent = new ExecuteRent(new VehicleRepositoryMemory())
+    const executeRent = new ExecuteRent(new VehicleRepositoryMemory(), new RentRepositoryMemory())
 
     const rent = executeRent.execute({
       licensePlate: 'AAA-2222',

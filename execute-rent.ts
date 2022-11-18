@@ -1,23 +1,17 @@
+import { RentRepository } from "./rent-repository"
 import { VehicleRepository } from "./vehicle-repository"
 
-const RENTS = [
-  { id: 0, total: 100 }
-]
-
 export class ExecuteRent {
-  constructor (private readonly vehicleRepository: VehicleRepository) {}
+  constructor (
+    private readonly vehicleRepository: VehicleRepository,
+    private readonly rentRepository: RentRepository
+  ) {}
 
   execute ({ days, licensePlate, personAge }: Input): Output {
     const vehicle = this.vehicleRepository.loadByLicensePlate(licensePlate)
     const totalRent = vehicle.calculateRent(days, personAge)
-
-    const lastRentId = RENTS[RENTS.length - 1].id
-    const rentId = lastRentId + 1
-    RENTS.push({
-      id: rentId,
-      total: totalRent
-    })
-
+    const rentId = this.rentRepository.count() + 1
+    this.rentRepository.save({ id: rentId, total: totalRent })
     return {
       id: rentId,
       total: totalRent
