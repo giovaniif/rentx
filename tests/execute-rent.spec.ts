@@ -1,6 +1,6 @@
-import { ExecuteRent } from "./execute-rent"
-import { RentRepositoryMemory } from "./rent-repository-memory"
-import { VehicleRepositoryMemory } from "./vehicle-repository-memory"
+import { ExecuteRent } from "../src/execute-rent"
+import { RentRepositoryMemory } from "../src/rent-repository-memory"
+import { VehicleRepositoryMemory } from "../src/vehicle-repository-memory"
 
 describe('ExecuteRent', () => {
   it('should execute the rent for a car', () => {

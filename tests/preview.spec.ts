@@ -1,5 +1,5 @@
-import { Preview } from './preview'
-import { VehicleRepositoryMemory } from './vehicle-repository-memory'
+import { Preview } from '../src/preview'
+import { VehicleRepositoryMemory } from '../src/vehicle-repository-memory'
 
 describe('Preview', () => {
   it('should simulate the rent for cars', () => {
