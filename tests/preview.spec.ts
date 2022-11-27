@@ -1,9 +1,20 @@
-import { Preview } from './preview'
+import { Preview } from '../src/preview'
+import { VehicleRepository } from '../src/vehicle-repository'
+import { VehicleRepositoryMemory } from '../src/vehicle-repository-memory'
 
 describe('Preview', () => {
-  it('should simulate the rent for cars', () => {
-    const preview = new Preview()
+  let preview: Preview
+  let vehicleRepository: VehicleRepository
 
+  beforeAll(() => {
+    vehicleRepository = new VehicleRepositoryMemory()
+  })
+
+  beforeEach(() => {
+    preview = new Preview(vehicleRepository)
+  })
+
+  it('should simulate the rent for cars', () => {
     const rent = preview.execute({
       licensePlate: 'AAA-1111',
       days: 7,
@@ -14,8 +25,6 @@ describe('Preview', () => {
   })
 
   it('should simulate the rent for motorcycles', () => {
-    const preview = new Preview()
-
     const rent = preview.execute({
       licensePlate: 'AAA-2222',
       days: 7,
@@ -26,8 +35,6 @@ describe('Preview', () => {
   })
 
   it('should throw if vehicle is not found', () => {
-    const preview = new Preview()
-
     expect(
       () => preview.execute({
         licensePlate: 'INVALID_PLATE',
