@@ -1,4 +1,4 @@
-import { Vehicle } from "../src/vehicle"
+import { Vehicle } from "./vehicle"
 
 describe('Vehicle', () => {
   it('should calculate the rent value correctly for car', () => {
