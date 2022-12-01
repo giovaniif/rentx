@@ -1,4 +1,4 @@
-import { ExecuteRent } from "../src/execute-rent"
+import { ExecuteRent } from "./execute-rent"
 
 describe('ExecuteRent', () => {
   it('should execute the rent for a car', () => {

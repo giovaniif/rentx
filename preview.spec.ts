@@ -1,4 +1,4 @@
-import { Preview } from '../src/preview'
+import { Preview } from './preview'
 
 describe('Preview', () => {
   it('should simulate the rent for cars', () => {
