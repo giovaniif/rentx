@@ -1,7 +1,11 @@
-import { VehicleRepository } from "./vehicle-repository"
+import { VehicleRepository } from './vehicles-repository'
 
 export class Preview {
-  constructor (private readonly vehicleRepository: VehicleRepository) {}
+  private readonly vehicleRepository: VehicleRepository
+
+  constructor (vehicleRepository: VehicleRepository) {
+    this.vehicleRepository = vehicleRepository
+  }
 
   execute ({ days, licensePlate, personAge }: Input): number {
     const vehicle = this.vehicleRepository.loadByLicensePlate(licensePlate)

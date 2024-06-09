@@ -1,16 +1,17 @@
 import { RentRepository } from "./rent-repository";
 
 export class RentRepositoryMemory implements RentRepository {
-  rents: Array<{ id: number, total: number }> = [{ id: 0, total: 100 }]
+  RENTS = [
+    { id: 0, total: 100 }
+  ]
 
-  save ({ id, total }: RentRepository.Save.Input): void {
-    this.rents.push({
-      id,
-      total
+  save(input: { total: number; }): { id: number } {
+    const lastRentId = this.RENTS[this.RENTS.length - 1].id
+    const rentId = lastRentId + 1
+    this.RENTS.push({
+      id: rentId,
+      total: input.total
     })
-  }
-
-  count (): number {
-    return this.rents.length
+    return { id: rentId }
   }
 }

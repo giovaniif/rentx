@@ -2,8 +2,10 @@ import { Preview } from '../src/preview'
 import { VehicleRepositoryMemory } from '../src/vehicle-repository-memory'
 
 describe('Preview', () => {
+  const vehicleRepository = new VehicleRepositoryMemory()
+
   it('should simulate the rent for cars', () => {
-    const preview = new Preview(new VehicleRepositoryMemory())
+    const preview = new Preview(vehicleRepository)
 
     const rent = preview.execute({
       licensePlate: 'AAA-1111',
@@ -15,7 +17,7 @@ describe('Preview', () => {
   })
 
   it('should simulate the rent for motorcycles', () => {
-    const preview = new Preview(new VehicleRepositoryMemory())
+    const preview = new Preview(vehicleRepository)
 
     const rent = preview.execute({
       licensePlate: 'AAA-2222',
@@ -27,7 +29,7 @@ describe('Preview', () => {
   })
 
   it('should throw if vehicle is not found', () => {
-    const preview = new Preview(new VehicleRepositoryMemory())
+    const preview = new Preview(vehicleRepository)
 
     expect(
       () => preview.execute({
